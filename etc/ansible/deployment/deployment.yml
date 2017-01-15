@@ -1,0 +1,58 @@
+---
+# This playbook deploys the whole application stack in this site.
+
+# Configure and deploy database servers.
+- hosts: all
+
+  become: yes
+  become_user: root
+
+  # uncomment this line in Ansible 2.1 to get debugging options !
+  #strategy: debug
+
+  # main variable files
+  vars_files:
+    - vars/main.yml
+    - vars/settings.yml
+    - vars/encrypted.yml
+    - vars/nodes_info.yml
+    - vars/hardening.yml
+    - vars/cleanup.yml
+
+    # chkconfig
+    - vars/chkconfig.yml
+
+    # service specific variables
+    - vars/services/auditd.yml
+    #- vars/services/cacti.yml
+    - vars/services/elasticsearch.yml
+    - vars/services/logstash.yml
+    - vars/services/kibana.yml
+    - vars/services/httpd.yml
+    - vars/services/geoip.yml
+    - vars/services/graylog.yml
+    - vars/services/icinga.yml
+    - vars/services/iptables.yml
+    - vars/services/mongod.yml
+    - vars/services/mysqld.yml
+    - vars/services/ntpd.yml
+    - vars/services/slapd.yml
+    - vars/services/sshd.yml
+    - vars/services/pxe.yml
+    - vars/services/sssd.yml
+    - vars/services/yum.yml
+    - vars/services/hadoop.yml
+    - vars/services/bird.yml
+
+  pre_tasks:
+    #
+
+  tasks:
+    - include: common-tasks.yml
+      #when: ansible_architecture == 'x86_64' and ansible_distribution in ['RedHat', 'CentOS', 'ScientificLinux'] and (ansible_distribution_version|version_compare('6', '>=') and ansible_distribution_version|version_compare('7', '<'))
+
+  post_tasks:
+    #
+
+  handlers:
+    - include: common-handlers.yml

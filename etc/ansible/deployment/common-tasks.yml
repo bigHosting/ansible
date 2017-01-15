@@ -1,0 +1,81 @@
+
+    - pause: prompt="Hit 'Enter' key to start deployment"
+
+    - include: "{{ tasks }}/setfacts.yml"
+    - include: "{{ tasks }}/settings.yml"
+
+    - include: "{{ tasks }}/services/kernel.yml"
+    - include: "{{ tasks }}/localmounts.yml"
+    - include: "{{ tasks }}/hardening.yml"
+
+    - include: "{{ tasks }}/cleanup.yml"
+    - include: "{{ tasks }}/services/selinux.yml"
+
+    - include: "{{ tasks }}/services/network.yml"
+
+    # sssd must be configured before bounce as we chown to bounce-production group
+    - include: "{{ tasks }}/services/hpacucli.yml"
+    - include: "{{ tasks }}/services/sssd.yml"
+    - include: "{{ tasks }}/bounce.yml"
+
+    - include: "{{ tasks }}/yum.yml"
+    - include: "{{ tasks }}/yum-repos.yml"
+
+    - include: "{{ tasks }}/services/yum-cron.yml"
+    - include: "{{ tasks }}/scripts.yml"
+
+    - include: "{{ tasks }}/services/grub.yml"
+    - include: "{{ tasks }}/services/su.yml"
+    - include: "{{ tasks }}/services/acpid.yml"
+    - include: "{{ tasks }}/services/auditd.yml"
+    - include: "{{ tasks }}/services/rtbh.yml"
+    - include: "{{ tasks }}/services/crond.yml"
+    - include: "{{ tasks }}/services/geoip.yml"
+    - include: "{{ tasks }}/services/graylog.yml"
+    - include: "{{ tasks }}/services/mongod.yml"
+    - include: "{{ tasks }}/services/elasticsearch.yml"
+    - include: "{{ tasks }}/services/logstash.yml"
+    - include: "{{ tasks }}/services/kibana.yml"
+    - include: "{{ tasks }}/services/httpd.yml"
+    - include: "{{ tasks }}/services/nginx.yml"
+    - include: "{{ tasks }}/services/iptables.yml"
+    - include: "{{ tasks }}/services/mysqld.yml"
+    - include: "{{ tasks }}/services/nfs.yml"
+    - include: "{{ tasks }}/services/ntpd.yml"
+    - include: "{{ tasks }}/services/ossec.yml"
+    - include: "{{ tasks }}/services/postfix.yml"
+    - include: "{{ tasks }}/services/repo.yml"
+    - include: "{{ tasks }}/services/slapd.yml"
+    - include: "{{ tasks }}/services/snmpd.yml"
+    #- include: "{{ tasks }}/services/cacti-nodes.yml"
+    - include: "{{ tasks }}/services/squid.yml"
+    - include: "{{ tasks }}/services/sshd.yml"
+    - include: "{{ tasks }}/services/sudo.yml"
+    - include: "{{ tasks }}/services/syslog-ng.yml"
+    - include: "{{ tasks }}/services/ttyS0.yml"
+    - include: "{{ tasks }}/services/tuned.yml"
+    - include: "{{ tasks }}/services/udevpost.yml"
+    - include: "{{ tasks }}/services/vmtools.yml"
+    - include: "{{ tasks }}/services/vpnloggers.yml"
+    - include: "{{ tasks }}/services/pxe.yml"
+    - include: "{{ tasks }}/services/clamav.yml"
+    - include: "{{ tasks }}/services/cacti.yml"
+    - include: "{{ tasks }}/services/icinga.yml"
+    - include: "{{ tasks }}/services/puppet.yml"
+    - include: "{{ tasks }}/services/mcollective.yml"
+    - include: "{{ tasks }}/services/postgres.yml"
+    - include: "{{ tasks }}/services/malwarescan.yml"
+    - include: "{{ tasks }}/services/openfire.yml"
+    - include: "{{ tasks }}/services/hadoop.yml"
+    - include: "{{ tasks }}/services/bird.yml"
+    - include: "{{ tasks }}/services/filebeat.yml"
+
+    - include: "{{ tasks }}/chkconfig.yml"
+
+    # monit must be at the end
+    - include: "{{ tasks }}/services/monit.yml"
+    # yum postinstall for yumextra rpms
+    - include: "{{ tasks }}/yum-postinstall.yml"
+
+    - debug: msg="System {{ inventory_hostname }} with IP {{ansible_default_ipv4.address}} is ready"
+
