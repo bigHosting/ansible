@@ -1,0 +1,10 @@
+#!/bin/sh
+
+COUNT=`who | wc -l`
+cat <<EOF
+{
+   "ansible_facts" : {
+      "users_logged_in" : $COUNT
+   }
+}
+EOF

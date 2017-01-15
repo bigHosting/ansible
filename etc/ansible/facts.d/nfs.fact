@@ -1,0 +1,127 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use JSON;
+
+sub hex2ip {
+    my $hexstr = shift;
+    my $result;
+
+
+    if ( $hexstr =~ /^([a-fA-F0-9]{2}){4}$/ ) {
+        my @conv;
+        $hexstr =~ /(..)(..)(..)(..)/;
+
+        push @conv, hex($4);
+        push @conv, hex($3);
+        push @conv, hex($2);
+        push @conv, hex($1);
+
+        #$result = uc "$hexstr = " . join( ".", @conv );
+        $result = join( ".", @conv );
+    }
+    else {
+        $result = "Invalid string: $hexstr";
+    }
+
+    return ($result);
+}
+
+my %settings = ('nfs'=>0, 'nfs_interface'=>'none');
+
+# Read /proc/mounts
+my %mounts;
+open (MOUNTS,"/proc/mounts") or die "Could not /proc/mounts for reading.";
+while (<MOUNTS>) {
+
+        # squeeze multiple spaces into 1
+        $_ =~ s/\h+/ /g;
+
+        # skip if non-NFS
+        next unless  ( (/\s+nfs\s+/) && (/:/) );
+
+        my ($device,$mpoint) = split(' ');
+        $mounts{$device} = $mpoint;
+
+}
+close MOUNTS;
+
+if ( scalar ( keys %mounts ) < 1)
+{
+        $settings{'nfs'} = 0;
+        $settings{'nfs_interface'} = "none";
+        my $json = encode_json \%settings;
+        print $json;
+        exit(0);
+}
+
+
+# we only need first element of array. split array into hash separated by ':'
+my %hash = map {split /:/} @{[%mounts]}[0];
+
+my @hash_keys  = keys %hash;
+my $remote     = $hash_keys[rand @hash_keys];
+
+# split IP by '.'
+my @array = map {split /\./} $remote;
+
+# skip last element of the array
+@array = @array[0..$#array-1];
+my $match = join( '.', @array );
+
+
+# Read /proc/net/route
+my %routes;
+open (ROUTES,"/proc/net/route") or die "Could not /proc/net/route for reading.";
+while (<ROUTES>) {
+
+        # squeeze multiple spaces into 1
+        $_ =~ s/\h+/ /g;
+
+        # Skip if not ethernet
+        next unless /^eth/;
+
+        my ($device,$destination) = split(' ');
+
+        # skip default gateway
+        next if ($destination =~ /00000000/);
+
+        # create hash
+        $routes{$device} = $destination;
+
+}
+close ROUTES;
+
+if ( scalar ( keys %routes ) < 1)
+{
+        #print "$0: invalid /proc/net/route or incorrect server config\n";
+        $settings{'nfs'} = 0;
+        $settings{'nfs_interface'} = "none";
+        my $json = encode_json \%settings;
+        print $json;
+        exit(0);
+
+}
+
+while ( my ($key, $value) = each (%routes))
+{
+        $value = $routes{$key};
+        my $ip = hex2ip($value);
+
+        if ( $ip =~ /$match/)
+        {
+                #print "NFS interface $key ==> $ip\n";
+                $settings{'nfs'} = 1;
+                $settings{'nfs_interface'} = "$key";
+                my $json = encode_json \%settings;
+                print $json;
+                exit(0);
+        }
+}
+
+my $json = encode_json \%settings;
+print $json;
+exit(0);
+
