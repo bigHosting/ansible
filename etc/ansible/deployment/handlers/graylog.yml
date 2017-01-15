@@ -1,0 +1,5 @@
+- name: restart graylog-server
+  action: service name=graylog-server state=restarted
+
+- name: restart graylog-web-interface
+  action: service name=graylog-web-interface state=restarted

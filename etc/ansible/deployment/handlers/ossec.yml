@@ -1,0 +1,5 @@
+- name: restart ossec
+  action: service name=ossec state=restarted
+
+- name: stop ossec
+  action: service name=ossec state=stopped

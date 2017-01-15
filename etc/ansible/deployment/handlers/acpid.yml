@@ -1,0 +1,5 @@
+- name: restart acpid
+  action: service name=acpid state=restarted
+
+- name: stop acpid
+  action: service name=acpid state=stopped

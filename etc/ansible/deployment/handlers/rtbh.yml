@@ -1,0 +1,5 @@
+- name: restart bird
+  action: service name=bird state=restarted
+
+- name: stop bird
+  action: service name=bird state=stopped

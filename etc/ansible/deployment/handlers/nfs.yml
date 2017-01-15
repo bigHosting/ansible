@@ -1,0 +1,8 @@
+- name: restart nfs
+  action: service name=nfs state=restarted
+- name: restart nfslock
+  action: service name=nfslock state=restarted
+- name: restart rpcbind
+  action: service name=rpcbind state=restarted
+- name: restart rpcidmapd
+  action: service name=rpcidmapd state=restarted

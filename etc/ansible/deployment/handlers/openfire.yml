@@ -1,0 +1,2 @@
+- name: restart openfire
+  action: service name=openfire state=restarted

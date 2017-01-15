@@ -1,0 +1,8 @@
+- name: restart iptables
+  action: service name=iptables state=restarted
+
+- name: reload iptables
+  action: shell /sbin/iptables-multi restore < /etc/sysconfig/iptables
+
+- name: restart iptables script
+  action: shell /localservices/sbin/iptables.sh

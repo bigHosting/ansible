@@ -1,0 +1,2 @@
+- name: restart syslogng
+  action: service name=syslog-ng state=restarted

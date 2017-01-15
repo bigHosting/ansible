@@ -1,0 +1,8 @@
+- name: restart icinga
+  action: service name=icinga state=restarted
+
+- name: reload icinga
+  action: shell /etc/init.d/icinga reload
+
+- name: check icinga
+  action: service name=icinga state=checkconfig

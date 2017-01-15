@@ -1,0 +1,17 @@
+- name: restart apache
+  action: service name=httpd state=restarted
+
+- name: reload apache
+  action: service name=httpd state=reloaded
+
+- name: stop apache
+  action: service name=httpd state=stopped
+
+- name: restart httpd
+  action: service name=httpd state=restarted
+
+- name: reload httpd
+  action: service name=httpd state=reloaded
+
+- name: stop httpd
+  action: service name=httpd state=stopped

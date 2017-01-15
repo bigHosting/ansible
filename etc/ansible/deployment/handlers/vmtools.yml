@@ -1,0 +1,2 @@
+- name: Restart vmware-tools-services
+  action: service name=vmware-tools-services state=restarted

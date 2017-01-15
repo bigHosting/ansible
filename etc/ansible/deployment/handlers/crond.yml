@@ -1,0 +1,10 @@
+- name: start crond
+  action: service name=crond state=started enabled=yes
+  tags:
+    - crond
+
+- name: restart crond
+  action: service name=crond state=restarted enabled=yes
+  tags:
+    - crond
+

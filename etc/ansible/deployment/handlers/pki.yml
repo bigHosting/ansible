@@ -1,0 +1,5 @@
+
+- name: update trusted ca redhat
+  shell: /usr/bin/update-ca-trust
+  when: ansible_os_family == "RedHat"
+

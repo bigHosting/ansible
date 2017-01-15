@@ -1,0 +1,5 @@
+- name: start tuned
+  service: name=tuned state=started
+
+- name: restart tuned
+  service: name=tuned state=restarted

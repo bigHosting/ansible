@@ -1,0 +1,6 @@
+---
+
+# PER GROUP VARS
+ansible_become: false
+ansible_connection: local
+

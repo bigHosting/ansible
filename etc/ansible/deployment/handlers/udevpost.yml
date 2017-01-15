@@ -1,0 +1,2 @@
+- name: restart udev-post
+  action: service name=udev-post state=restarted

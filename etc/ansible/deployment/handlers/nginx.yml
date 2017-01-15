@@ -1,0 +1,17 @@
+- name: restart nginx
+  action: service name=nginx state=restarted
+
+- name: reload apache
+  action: service name=nginx state=reloaded
+
+- name: stop apache
+  action: service name=nginx state=stopped
+
+- name: restart nginx
+  action: service name=nginx state=restarted
+
+- name: reload nginx
+  action: service name=nginx state=reloaded
+
+- name: stop nginx
+  action: service name=nginx state=stopped

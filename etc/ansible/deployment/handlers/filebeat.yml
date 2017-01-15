@@ -1,0 +1,5 @@
+- name: restart filebeat
+  action: service name=filebeat state=restarted
+
+- name: stop filebeat
+  action: service name=filebeat state=stopped

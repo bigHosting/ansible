@@ -1,0 +1,10 @@
+- name: start squid
+  action: service name=squid state=started enabled=yes
+  tags:
+    - squid
+- name: restart squid
+  action: service name=squid state=restarted enabled=yes
+  tags:
+    - squid
+
+

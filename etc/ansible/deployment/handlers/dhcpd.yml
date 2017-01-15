@@ -1,0 +1,12 @@
+- name: start dhcpd
+  action: service name=dhcpd state=started enabled=yes
+  tags:
+    - pxe
+    - dhcpd
+
+- name: restart dhcpd
+  action: service name=dhcpd state=restarted enabled=yes
+  tags:
+    - pxe
+    - dhcpd
+

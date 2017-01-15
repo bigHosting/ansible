@@ -1,0 +1,2 @@
+- name: restart sysstat
+  action: service name=sysstat state=restarted
