@@ -1,0 +1,194 @@
+# This is the default ansible 'hosts' file.
+#
+# It should live in /etc/ansible/hosts
+#
+#   - Comments begin with the '#' character
+#   - Blank lines are ignored
+#   - Groups of hosts are delimited by [header] elements
+#   - You can enter hostnames or ip addresses
+#   - A hostname/ip can be a member of multiple groups
+
+
+[webservers]
+nvd.sec.domain.com
+nagios.sec.domain.com
+sd1.sec.domain.com
+intranet.domain.com
+graylog1.sec.domain.com
+sman1.sec.domain.com
+
+[monitoring]
+nagios.sec.domain.com
+
+[dbservers]
+freya.sec.domain.com
+nagios.sec.domain.com
+
+[nvd]
+nvd.sec.domain.com
+
+[ijumpproxies]
+ijumpproxy[1:2].sec.domain.com
+
+[pt]
+pt[1:2].sec.domain.com
+
+[pxe]
+g6.sec.domain.com
+
+[dev]
+sd1.sec.domain.com
+
+[avproxies]
+jnprftp.sec.domain.com
+sq2.sec.domain.com
+
+[backup]
+bk1.sec.domain.com
+
+[jabber]
+im1.sec.domain.com
+im2.sec.domain.com
+
+[vpnloggers]
+jnprftp.sec.domain.com
+
+[nsyslog]
+nsyslog-mia1.sec.domain.com
+nsyslog-tor1.sec.domain.com
+
+
+[bounce-prod]
+bart.domain.com
+guinness.domain.com
+barni.domain.com
+fred.domain.com
+nancy.domain.com
+wally.domain.com
+
+[bounce-dev]
+snoopy.domain.com
+garfield.domain.com
+
+[bounce:children]
+bounce-prod
+bounce-dev
+
+
+
+[mal]
+mal0c0.domain.com          w3Control_db_host=admindbc0.domain.com      c=0
+mal0c2.domain.com          w3Control_db_host=admindbc0.domain.com      c=2
+mal0c8.domain.com          w3Control_db_host=admindbc0.domain.com      c=8
+
+[vmextra]
+jnprftp.sec.domain.com
+bk1.sec.domain.com
+sq2.sec.domain.com
+g6.sec.domain.com
+intranet.domain.com
+sman1.sec.domain.com
+esph1.sec.domain.com
+esph2.sec.domain.com
+esph3.sec.domain.com
+esph4.sec.domain.com
+es2.sec.domain.com
+es3.sec.domain.com
+es30.sec.domain.com
+es31.sec.domain.com
+
+[mongod]
+graylog1.sec.domain.com
+
+[elasticsearch]
+graylog1.sec.domain.com elasticsearchip=10.121.24.39
+
+[logstash]
+logstash1.sec.domain.com
+
+[es]
+logstash1.sec.domain.com
+es30.sec.domain.com elasticsearchip=10.121.24.230
+es31.sec.domain.com elasticsearchip=10.121.24.231
+esph1.sec.domain.com elasticsearchip=10.121.24.100
+esph2.sec.domain.com elasticsearchip=10.121.24.101
+esph3.sec.domain.com elasticsearchip=10.121.24.102
+esph4.sec.domain.com elasticsearchip=10.121.24.103
+
+
+
+[kibana]
+logstash1.sec.domain.com
+
+[graylog]
+graylog1.sec.domain.com
+
+[rsa]
+ksrvbp0.sec.domain.com
+ksrvbr1.sec.domain.com
+ksrvfr1.sec.domain.com
+ksrvfr2.sec.domain.com
+ksrvir1.sec.domain.com
+ksrvir2.sec.domain.com
+
+
+[umsrvnewtest]
+umsrv10.sec.domain.com
+
+# LDAP SLAVES
+[umsrvnew_slaves_fl]
+umsrv1s1.sec.domain.com myrid=110 myip=X.Y.55.155 myvip=X.Y.41.83 mymaster=X.Y.90.83
+umsrv1s2.sec.domain.com myrid=120 myip=X.Y.55.159 myvip=X.Y.41.83 mymaster=X.Y.90.83
+
+[umsrvnew_slaves_ir]
+umsrv3s1.sec.domain.com myrid=310 myip=X.Y.6.60 myvip=X.Y.7.31 mymaster=X.Y.1.239
+umsrv3s2.sec.domain.com myrid=320 myip=X.Y.6.61 myvip=X.Y.7.31 mymaster=X.Y.1.239
+
+[umsrvnew_slaves:children]
+umsrvnew_slaves_fl
+umsrvnew_slaves_ir
+
+# LDAP MASTERS
+[umsrvnew_masters_fl]
+umsrv1m.sec.domain.com serveridnew=1 myrid=100 myip=X.Y.90.83
+umsrv10.sec.domain.com myip=X.Y.90.84
+[umsrvnew_masters_ir]
+umsrv3m.sec.domain.com serveridnew=3 myrid=300 myip=X.Y.1.239
+
+[umsrvnew_masters:children]
+umsrvnew_masters_fl
+umsrvnew_masters_to
+umsrvnew_masters_ir
+
+
+[umsrvnew:children]
+# include masters from above
+umsrvnew_masters
+# include slaves from above
+umsrvnew_slaves
+
+#[umsrvnew_masters:vars]
+#  master=1
+#[umsrvnew_slaves:vars]
+#  slave=1
+
+# DO NOT REMOVE !!!! or things will BREAK !
+[umsrv]
+
+[rtbh]
+rtbh-mia1.sec.domain.com location=FL
+rtbh-tor1.sec.domain.com location=TO
+rtbh-dub1.sec.domain.com location=IE
+
+# HADOOP : 'namenodes' + 'datanodes' = 'hadoop' group
+[hadoop:children]
+hadoop_namenodes
+hadoop_datanodes
+
+[hadoop_namenodes]
+hdp1.domain.com
+
+[hadoop_datanodes]
+hdp[2:7].domain.com
+
+
