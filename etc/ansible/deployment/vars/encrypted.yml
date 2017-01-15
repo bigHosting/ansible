@@ -1,0 +1,82 @@
+
+#######################
+#####  User MGMT  #####
+#######################
+emergency_accounts:
+  - name: "Fallback User"
+    user: hfallback
+    full_name: "Fallback account"
+    password_crypt: "$6$zgD.sPylwnmfnnef*************"
+    #extra_groups: *ops_groups
+
+#####################################
+#####  Juniper user ftp upload  #####
+#####################################
+juniper:
+  uploaduser:
+    - full_name: "FTP Upload User"
+      user: upload
+      password_crypt: "$6$9XhO2wMY$2/w...************."
+      home: '/localservices/ftp'
+      shell: '/sbin/nologin'
+
+
+#######################
+#####  SSL Certs  #####
+#######################
+ssl:
+  dest_dir: /etc/httpd/ssl
+  key_password: PASSWORD
+  # encrypt: openssl aes-256-cbc -salt -a -e -in sec.domain.com.key -out sec.domain.com.key.encrypted -k PASSWORD
+  # decrypt: openssl aes-256-cbc -salt -a -d -in sec.domain.com.key.encrypted -out sec.domain.com.key -k PASSWORD
+
+
+
+###################
+#####  MySQL  #####
+###################
+mysql:
+
+  nvd:
+    freshinstall: '0'
+    dbpass: '*****'
+    #mysql_databases: []
+    mysql_databases:
+      - { name: passwordshare, collation: utf8_general_ci, encoding: utf8, replicate: 0 }
+      - { name: fileshare,     collation: utf8_general_ci, encoding: utf8, replicate: 0 }
+
+  freya:
+    freshinstall: '0'
+    dbpass: '*****'
+
+  monitoring:
+    # set freshinstall to 1 for new installations only
+    freshinstall: '0'
+    dbuser: 'root'
+    dbpass: '********'
+
+    # cacti specific vars
+    dbcacti: 'cacti'
+    dbcactiuser: 'cacti'
+    dbcactipass: '**************'
+
+    # cacti specific vars
+    dbicinga: 'icinga'
+    dbicingauser: 'icinga'
+    dbicingapass: '************'
+    #dbicinga_file_import: '/usr/share/doc/icinga-idoutils-libdbi-mysql-1.8.4/db/mysql/mysql.sql'
+
+  # https://github.com/geerlingguy/ansible-role-mysql/blob/master/defaults/main.yml
+  mysql_users:
+    - { name: nagios, host: nagios.sec.domain.com, password: *********, priv: '*.*:USAGE,PROCESS,SUPER,SELECT' }
+    - { name: backup, host: localhost, password: '******', priv: '*.*:SUPER,FILE,LOCK TABLES,SELECT,SHOW VIEW,RELOAD,REPLICATION CLIENT,EVENT,TRIGGER' }
+
+snmp:
+  linux:
+    user: 'NaG1oSseC'
+    password: '*********'
+    authproto: 'SHA'
+    privpass: '*********'
+    privproto: 'DES'
+
+

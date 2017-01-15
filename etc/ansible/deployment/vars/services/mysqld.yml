@@ -1,0 +1,63 @@
+mysql:
+  mysqld:
+    user: 'mysql'
+    bind-address: '::'
+    skip-host-cache: 'None'
+    low-priority-updates: 'None'
+    datadir: '/var/lib/mysql'
+    socket: '/var/lib/mysql/mysql.sock'
+    pid-file: '/var/lib/mysql/mysqld.pid'
+
+    # Optimization by SecurityGuy
+    event_scheduler: '1'
+    character_set_server: 'utf8'
+    collation_server: 'utf8_general_ci'
+
+    key_buffer_size: '384M'
+    thread_cache_size: '256'
+    query_cache_size: '32M'
+    query_cache_limit: '10M'
+    query_cache_type: '1'
+    read_buffer_size: '1M'
+    sort_buffer_size: '2M'
+    open-files-limit: '65535'
+    open_files_limit: '65535'
+    max_connections: '1000'
+    max_user_connections: '100'
+    max_connect_errors: '1000000'
+    back_log: '1024'
+    connect_timeout: '15'
+    wait_timeout: '150'
+
+    long_query_time: '3'
+    symbolic-links: '0'
+    local-infile  : '0'
+
+    performance_schema: '0'
+    flush: '1'
+    innodb_flush_log_at_trx_commit: '1'
+
+    default-storage-engine : 'InnoDB'
+    innodb_file_per_table  : '1'
+    innodb_open_files      : '60000'
+    innodb_flush_method    : 'O_DIRECT'
+    innodb_buffer_pool_size: '4G'
+    innodb_read_io_threads: '64'
+    innodb_write_io_threads: '64'
+    innodb_fast_shutdown: '0'
+
+    thread_concurrency: '{{ ansible_processor_cores * 2 }}'
+
+  mysql:
+    prompt: "{{ansible_hostname}} mysql> "
+
+  mysqld_safe:
+    log-error: '/var/log/mysqld.log'
+    pid-file: '/var/run/mysqld/mysqld.pid'
+
+  client:
+    user: 'root'
+
+  mysqldump:
+    character-set-server: 'utf8'
+

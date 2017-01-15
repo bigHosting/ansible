@@ -1,0 +1,7 @@
+###################
+#####  MONGOD #####
+###################
+mongod:
+  replication: false
+  port: 27017
+  datadir_prefix: "/services/mongodb_data"

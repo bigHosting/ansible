@@ -1,0 +1,27 @@
+###################
+#####  CACTI  #####
+###################
+cacti:
+  # set applypatch if you need cacti to reapply patch. Set to '1' only after cacti rpm install
+  applypatch: '0'
+
+  importtemplates: false
+  templates:
+    - { file: "cacti_graph_template_ldap_response_time.xml" }
+    - { file: "cacti_graph_template_openldap_initiated_operations.xml"}
+    - { file: "cacti_host_template_percona_mysql_server_ht_0.8.6i-sver1.1.5.xml"}
+    - { file: "cacti_host_template__rsa_securid.xml" }
+    - { file: "cacti_host_template_webserver_-_apache.xml" }
+    - { file: "paloalto_firewalls_v03.xml" }
+
+  plugins:
+    - { cmd: "unzip -o /tmp/quicktree-0.2.zip    -d /usr/share/cacti/plugins/", url: "http://wotsit.thingy.com/haj/cacti/quicktree-0.2.zip",     tmp: "/tmp/quicktree-0.2.zip" }
+    - { cmd: "tar xvzf /tmp/settings-v0.71-1.tgz -C /usr/share/cacti/plugins/", url: "http://docs.cacti.net/_media/plugin:settings-v0.71-1.tgz", tmp: "/tmp/settings-v0.71-1.tgz" }
+    - { cmd: "tar xvzf /tmp/thold-v0.5.0.tgz     -C /usr/share/cacti/plugins/", url: "http://docs.cacti.net/_media/plugin:thold-v0.5.0.tgz",     tmp: "/tmp/thold-v0.5.0.tgz" }
+    - { cmd: "tar xvf /tmp/dashboardv_v1.2.tar   -C /usr/share/cacti/plugins/", url: "http://docs.cacti.net/lib/exe/fetch.php?hash=424de1&media=http%3A%2F%2Fdocs.cacti.net%2F_media%2Fuserplugin%3Adashboardv_v1.2.tar",     tmp: "/tmp/dashboardv_v1.2.tar" }
+
+  # cacti trees for web interface
+  trees: [ Dublin, FrontSt, Miami, Mississauga, Toronto ]
+
+  #scripts folder
+  sfolder: "/var/lib/cacti/cli"

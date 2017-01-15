@@ -1,0 +1,102 @@
+
+users:
+  departed: [ user1, user2 ]
+  ignore: [ abrt, adm, apache, bin, cacti,  clam, clamav, clam-update, daemon, dbus, dhcpd, distcache, elasticsearch, george, graylog, graylog-web, haldaemon, halt, hfallback, icinga, kibana, ldap, logstash, mail, mongod, monit, mysql, nagios, nfsnobody, nginx, nobody, nsc, ntp, operator, postfix, puppet, root, rpc, rpcuser, saslauth, shutdown, smmsp, squid, sshd, sssd, sync, tcpdump, tss, unbound, uwsgi, vcsa, fallbck_user ]
+  remove_unknown_users: true
+  sudo: [ fallback_user ]
+
+home:
+  remove_unknown_folders: true
+  ignore: [ lost+found, clam, clam-update, ttradmin ]
+
+hardening:
+  # list of suid/sgid entries that suid/sgid bit must be removed
+  suid:
+    blacklist:
+      - '/usr/bin/at'
+      - '/usr/bin/rcp'
+      - '/usr/bin/rlogin'
+      - '/usr/bin/rsh'
+      # sshd must not use host-based authentication (see ssh cookbook)
+      - '/usr/libexec/openssh/ssh-keysign'
+      - '/usr/lib/openssh/ssh-keysign'
+      - '/sbin/netreport'                                            # not normally required for user
+      - '/usr/sbin/usernetctl'                                       # modify interfaces via functional accounts
+      - '/usr/sbin/userisdnctl'                                      # no isdn...
+      - '/usr/sbin/pppd'                                             # no ppp / dsl ...
+      - '/usr/bin/lockfile'
+      - '/usr/bin/mail-lock'
+      - '/usr/bin/mail-unlock'
+      - '/usr/bin/mail-touchlock'
+      - '/usr/bin/dotlockfile'
+      # need more investigation blacklist for now
+      - '/usr/bin/arping'
+      - '/usr/sbin/uuidd'
+      - '/usr/bin/mtr'                                               # investigate current state...
+      - '/usr/lib/evolution/camel-lock-helper-1.2'                   # investigate current state...
+      - '/usr/lib/pt_chown'                                          # pseudo-tty needed?
+      - '/usr/lib/eject/dmcrypt-get-device'
+      - '/usr/lib/mc/cons.saver'                                      # midnight commander screensaver
+      # we use ldap so no local password utils
+      - '/usr/bin/gpasswd'
+      - '/usr/bin/locate'
+      - '/usr/bin/newgrp'
+      - '/usr/bin/passwd'
+
+    # list of suid/sgid entries that can remain untouched
+    whitelist:
+      # custom
+      - '/suid/su'
+      - '/suid/sudo'
+      - '/suid/passwd'
+      # whitelist as provided by NSA
+      - '/bin/mount'
+      - '/bin/ping'
+      - '/bin/su'
+      - '/bin/umount'
+      - '/sbin/pam_timestamp_check'
+      - '/sbin/unix_chkpwd'
+      - '/usr/bin/ssh-agent'
+      - '/usr/libexec/utempter/utempter'
+      - '/usr/sbin/lockdev'
+      - '/usr/sbin/sendmail.sendmail'
+      - '/usr/bin/expiry'
+      # whitelist ipv6
+      - '/bin/ping6'
+      - '/usr/bin/traceroute6.iputils'
+      # whitelist nfs
+      - '/sbin/mount.nfs'
+      - '/sbin/umount.nfs'
+      # whitelist nfs4
+      - '/sbin/mount.nfs4'
+      - '/sbin/umount.nfs4'
+      # whitelist cron
+      #- '/usr/bin/crontab'
+      # whitelist consolemssaging
+      #- '/usr/bin/wall'
+      #- '/usr/bin/write'
+      # whitelist locate
+      #- '/usr/bin/mlocate'
+      # whitelist usermanagement
+      #- '/usr/bin/chage'
+      #- '/usr/bin/chfn'
+      #- '/usr/bin/chsh'
+      # whitelist fuse
+      #- '/bin/fusermount'
+      # whitelist pkexec
+      #- '/usr/bin/pkexec'
+      # whitelist sudo
+      - '/usr/bin/sudo'
+      - '/usr/bin/sudoedit'
+      # whitelist postfix
+      - '/usr/sbin/postdrop'
+      - '/usr/sbin/postqueue'
+      # whitelist apache
+      - '/usr/sbin/suexec'
+      # whitelist squid
+      #- '/usr/lib/squid/ncsa_auth'
+      #- '/usr/lib/squid/pam_auth'
+      # whitelist pam_caching
+      #- '/usr/sbin/ccreds_validate'
+
+

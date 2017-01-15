@@ -1,0 +1,67 @@
+######################
+#####  SERVICEs  #####
+######################
+services:
+
+  # services that must exist (started or stopped) on the servers. State is not used
+  regular:
+    - { name: auditd,                state: started, enabled: yes }
+    - { name: crond,                 state: started, enabled: yes }
+    - { name: bird,                  state: started, enabled: yes }
+    - { name: bird6,                 state: started, enabled: yes }
+    - { name: dhcpd,                 state: started, enabled: yes }
+    - { name: elasticsearch,         state: started, enabled: yes }
+    - { name: filebeat,              state: started, enabled: yes }
+    - { name: hp-asrd,               state: started, enabled: yes }
+    - { name: hp-health,             state: started, enabled: yes }
+    - { name: httpd,                 state: started, enabled: yes }
+    - { name: icinga,                state: started, enabled: yes }
+    - { name: ip6tables,             state: started, enabled: yes }
+
+    - name: iptables
+      state: running
+      enabled: yes
+
+    - { name: kdump,                 state: started, enabled: yes }
+    - { name: ktune,                 state: started, enabled: yes }
+    - { name: maldet,                state: started, enabled: yes }
+    - { name: malwarescan,           state: started, enabled: yes }
+    - { name: messagebus,            state: started, enabled: yes }
+    - { name: mongod,                state: started, enabled: yes }
+    - { name: monit,                 state: started, enabled: yes }
+    - { name: mysqld,                state: started, enabled: yes }
+    - { name: netfs,                 state: started, enabled: yes }
+    - { name: nfs,                   state: started, enabled: yes }
+    - { name: nfslock,               state: started, enabled: yes }
+    - { name: network,               state: started, enabled: yes }
+    - { name: portreserve,           state: started, enabled: yes }
+    - { name: oddjobd,               state: started, enabled: yes }
+    - { name: psacct,                state: started, enabled: yes }
+    - { name: postfix,               state: started, enabled: yes }
+    - { name: puppet,                state: started, enabled: yes }
+    - { name: rpcbind,               state: started, enabled: yes }
+    - { name: rpcidmapd,             state: started, enabled: yes }
+    - { name: slapd,                 state: started, enabled: yes }
+    - { name: squid,                 state: started, enabled: yes }
+    - { name: snmpd,                 state: started, enabled: yes }
+    - { name: snmptrapd,             state: started, enabled: yes }
+    - { name: sshd,                  state: started, enabled: yes }
+    - { name: sssd,                  state: started, enabled: yes }
+    - { name: syslog-ng,             state: started, enabled: yes }
+    - { name: tuned,                 state: started, enabled: yes }
+    - { name: udev-post,             state: started, enabled: yes }
+    - { name: xinetd,                state: started, enabled: yes }
+    - { name: yum-cron,              state: started, enabled: yes }
+    - { name: vmware-tools-services, state: started, enabled: yes }
+
+  # xinetd specific services: NOT IN USE
+  xinetd:
+    - { name: tftp,       state: started }
+
+  # centos version
+  #6:
+  #  - name: iptables
+  #    state: running
+  #
+  #  - name: ip6tables
+  #    state: running

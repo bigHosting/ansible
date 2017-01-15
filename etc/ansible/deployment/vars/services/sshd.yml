@@ -1,0 +1,66 @@
+##########################
+#####  SSHD OPTIONS  #####
+##########################
+
+sshd:
+  global:
+    - { name: 'Port',                     value: '22'      }
+    - { name: 'ListenAddress',            value: '0.0.0.0' }
+    - { name: 'ListenAddress',            value: '::'      }
+    - { name: 'Protocol',                 value: '2'       }
+
+    - { name: 'HostKey',                  value: '/etc/ssh/ssh_host_ed25519_key' }
+    - { name: 'HostKey',                  value: '/etc/ssh/ssh_host_rsa_key' }
+    #- { name: 'HostKey',                 value: '/etc/ssh/ssh_host_ecdsa_key' }
+    #- { name: 'HostKey',                 value: '/etc/ssh/ssh_host_dsa_key' }
+    - { name: 'KeyRegenerationInterval',  value: '1h'      }
+    - { name: 'ServerKeyBits',            value: '2048'    }
+    - { name: 'SyslogFacility',           value: 'AUTHPRIV'}
+    - { name: 'LogLevel',                 value: 'INFO'    }
+    - { name: 'StrictModes',              value: 'yes'     }
+    - { name: 'PermitRootLogin',          value: 'no'      }
+
+    - { name: 'MaxAuthTries',             value: '0'       }
+
+    - { name: 'RSAAuthentication',        value: 'no'      }
+    - { name: 'PasswordAuthentication',   value: 'no'      }
+    - { name: 'RhostsRSAAuthentication',  value: 'no'      }
+    - { name: 'HostbasedAuthentication',  value: 'no'      }
+    - { name: 'IgnoreRhosts',             value: 'yes'     }
+
+    - { name: 'PermitEmptyPasswords',     value: 'no'      }
+    - { name: 'AllowTcpForwarding',       value: 'no'      }
+    - { name: 'X11Forwarding',            value: 'no'      }
+    - { name: 'GatewayPorts',             value: 'no'      }
+    - { name: 'PermitTunnel',             value: 'no'      }
+
+    - { name: 'GSSAPIAuthentication',     value: 'no'      }
+    - { name: 'GSSAPICleanupCredentials', value: 'yes'     }
+    - { name: 'UsePAM',                   value: 'yes'     }
+    - { name: 'PrintMotd',                value: 'yes'     }
+    - { name: 'PrintLastLog',             value: 'yes'     }
+    - { name: 'UsePrivilegeSeparation',   value: 'yes'     }
+    - { name: 'PermitUserEnvironment',    value: 'no'      }
+    - { name: 'ClientAliveInterval',      value: '300'     }
+    - { name: 'ClientAliveCountMax',      value: '3'       }
+    - { name: 'UseDNS',                   value: 'yes'     }
+    - { name: 'MaxStartups',              value: '100:30:150'}
+    - { name: 'Banner',                   value: '/etc/ssh/motd'}
+    - { name: 'RekeyLimit',               value: '256M'    }
+    - { name: 'AuthenticationMethods',    value: 'none'    }
+    - { name: 'PubkeyAuthentication',     value: 'no'      }
+    - { name: 'AcceptEnv',                value: 'LANG LC_CTYPE LC_NUMERIC LC_TIME LC_COLLATE LC_MONETARY LC_MESSAGES'}
+    - { name: 'AcceptEnv',                value: 'LC_PAPER LC_NAME LC_ADDRESS LC_TELEPHONE LC_MEASUREMENT'}
+    - { name: 'AcceptEnv',                value: 'LC_IDENTIFICATION LC_ALL LANGUAGE'}
+    - { name: 'AcceptEnv',                value: 'XMODIFIERS'}
+    #- { name: 'PubkeyAuthentication',    value: 'yes'}
+    #- { name: 'AuthorizedKeysCommandUser', value: 'nobody'}
+    #- { name: 'AuthorizedKeysCommand',   value: '/usr/bin/sss_ssh_authorizedkeys'}
+
+  # https://stribika.github.io/2015/01/04/secure-secure-shell.html , https://stribika.github.io/2015/01/04/secure-secure-shell.html
+  #kex: "curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256"
+  kex: "curve25519-sha256@libssh.org,ecdh-sha2-nistp521,diffie-hellman-group-exchange-sha256,ecdh-sha2-nistp384,ecdh-sha2-nistp256"
+  #ciphers: "chacha20-poly1305@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr"
+  ciphers: "chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr"
+  macs: "hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-ripemd160-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,hmac-ripemd160,umac-128@openssh.com"
+

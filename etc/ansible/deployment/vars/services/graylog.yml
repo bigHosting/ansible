@@ -1,0 +1,12 @@
+#####################
+#####  GRAYLOG  #####
+#####################
+
+graylog:
+  secret: "*************************************************************"
+  # Generate a sha256 hashed password:echo -n mypassword | shasum -a 256
+  admin_password: "*****************************************************"
+  #path: /services/logs
+  #dbpath: /services/logs/graylog-server/data
+  #perfdata: /services/logs/graylog-server/hsperfdata_graylog
+  plugin_dir: /usr/share/graylog-server/plugin

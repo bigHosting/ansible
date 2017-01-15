@@ -1,0 +1,12 @@
+###################
+#####  GeoIP  #####
+###################
+geoip:
+  rpm:   'http://updates.atomicorp.com/channels/atomic/centos/6/x86_64/RPMS/GeoIP-1.4.8-1.1.el6.art.x86_64.rpm'
+  url1:  'http://geolite.maxmind.com/download/geoip/database'
+  url2:  'http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry'
+  file1: 'GeoLiteCity.dat.gz'
+  file2: 'GeoIP.dat.gz'
+  dest1: 'GeoIPCity.dat'
+  dest2: 'GeoIP.dat'
+  folder: '/usr/share/GeoIP'

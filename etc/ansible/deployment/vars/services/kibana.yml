@@ -1,0 +1,14 @@
+#kibana:
+#  dir: /opt
+#  index: .kibana
+#  log: /var/log/kibana.log
+#  log_rotate_count: 5
+#  log_rotate_interval: daily
+#  port: 5601
+#  version: 4.1.1
+
+kibana:
+  group: "kibana"
+  user: "kibana"
+  userdetails:
+    - { name: 'kibana', system: 'yes', state: 'present', comment: 'kibana user', home: '/home/kibana', shell: '/bin/bash',  groups: ['kibana'], password: '!!' }

@@ -1,0 +1,34 @@
+elasticsearch:
+  # /etc/sysconfig/elasticsearch
+  heap_size: 8g
+  max_open_files: 65535
+
+  group: "elasticsearch"
+  user: "elasticsearch"
+  userdetails:
+    - { name: 'elasticsearch', system: 'yes', state: 'present', comment: 'elasticsearch user', home: '/usr/share/elasticsearch', shell: '/sbin/nologin',  groups: ['elasticsearch'], password: '!!' }
+
+  #timezone: "America/Toronto"
+  #node_max_local_storage_nodes: 1
+  #index_mapper_dynamic: "true"
+
+  # /etc/elasticsearch/elasticsearch.yml & /etc/graylog/server/server.conf
+  cluster_name: graylog2
+  index_number_of_replicas: 1
+  path_data: "/services/elasticsearch"
+  memory_bootstrap_mlockall: "true"
+
+  multicast: "false"
+
+  #plugins_install: false
+
+  plugin_install_marvel:  false
+  plugin_install_eshq:    false
+  plugin_install_head:    false
+  plugin_install_bigdesk: false
+  #plugin_install_curator: false
+
+  #plugins:
+  #    #- { name: 'elasticsearch/marvel/latest', folder: '/usr/share/elasticsearch/plugins/marvel' }
+  #    - { name: 'mobz/elasticsearch-head'    , folder: '/usr/share/elasticsearch/plugins/head' }
+  #nodes: [ 10.121.24.39, 10.121.24.68, 10.121.24.69 ]

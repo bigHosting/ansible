@@ -1,0 +1,16 @@
+#################
+#####  NTP  #####
+#################
+ntp:
+  ntpd:
+    - { name: 'tinker', value: 'panic 0' }
+    - { name: 'driftfile', value: '/var/lib/ntp/drift' }
+    - { name: 'restrict',  value: '-4 default nomodify nopeer noquery notrap' }
+    - { name: 'restrict',  value: '-6 default nomodify nopeer noquery notrap' }
+    - { name: 'restrict',  value: '127.0.0.1' }
+    - { name: 'restrict',  value: '::1' }
+    - { name: 'server',    value: 'time1.domain.com' }
+    - { name: 'server',    value: 'time2.domain.com' }
+
+time_zone: America/New_York
+change_timezone: true

@@ -1,0 +1,37 @@
+###########################
+#####  SCAP / Auditd  #####
+###########################
+setuid_programs:
+    - /sbin/netreport
+    - /sbin/pam_timestamp_check
+    - /sbin/unix_chkpwd
+    - /sbin/mount.nfs
+    - /usr/sbin/usernetctl
+    - /usr/sbin/userhelper
+    - /usr/bin/newgrp
+    - /usr/bin/at
+    - /usr/bin/pkexec
+    - /usr/bin/gpasswd
+    - /usr/bin/chsh
+    - /usr/bin/crontab
+    - /usr/bin/chfn
+    - /usr/bin/sudo
+    - /usr/bin/chage
+    - /usr/bin/passwd
+    - /usr/libexec/polkit-1/polkit-agent-helper-1
+    - /usr/libexec/pt_chown
+    - /usr/libexec/abrt-action-install-debuginfo-to-abrt-cache
+    - /usr/libexec/utempter/utempter
+    - /usr/libexec/openssh/ssh-keysign
+    - /bin/su
+    - /bin/mount
+    - /bin/umount
+    - /bin/ping6
+    - /bin/ping
+    - /bin/fusermount
+    - /bin/cgexec
+    - /bin/cgclassify
+    - /lib64/dbus-1/dbus-daemon-launch-helper
+    - /suid/su
+    - /suid/sudo
+    - /suid/passwd

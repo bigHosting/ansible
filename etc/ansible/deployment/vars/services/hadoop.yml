@@ -1,0 +1,52 @@
+####################
+#####  HADOOP  #####
+####################
+
+hadoop:
+
+  java_remove: true
+  java_update_alternatives: true
+
+  format_volume: true
+
+  user: hdfs
+  group: hadoop
+
+  defaultFS_port: 8020
+
+  nodes:
+    - hostname: hdp1
+      ip: X.Y.48.101
+    - hostname: hdp2
+      ip: X.Y.48.102
+    - hostname: hdp3
+      ip: X.Y.48.103
+    - hostname: hdp4
+      ip: X.Y.48.104
+    - hostname: hdp5
+      ip: X.Y.48.105
+    - hostname: hdp6
+      ip: X.Y.48.106
+    - hostname: hdp7
+      ip: X.Y.48.107
+
+
+  dfs:
+    namenode_name_dir:
+      - /localservices/hadoopname1/
+      - /localservices/hadoopname2/
+    replication: 2
+    blocksize: 134217728
+    datanode_data_dir:
+      - /localservices/hdfs_data/
+
+  #master_ip: "{{ hostvars[groups['hadoop_namenodes'][0]]['ansible_' + iface]['ipv4']['address'] }}"
+  namenode_hostname: "hdp1.domain.com"
+  mapred:
+    job_tracker_port: 8021
+    job_tracker_host: "hdp1.domain.com"
+    local_dir:
+      - /localservices/hadoopmapred1/
+      - /localservices/hadoopmapred2/
+
+

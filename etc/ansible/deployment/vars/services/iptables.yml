@@ -1,0 +1,82 @@
+iptables:
+
+  # WHITELIST all prococols all ports
+  whitelist:
+    # ALL ports, ALL protocols
+    netvis:
+      - { IP: 'X.Y.143.0/26' , comment: 'netvis'}
+      - { IP: 'X.Y.41.32/27'  , comment: 'netvis'}
+    vpn:
+      - { IP: '10.70.16.0/20', comment: 'VPN-ijump'}
+      - { IP: '10.25.15.0/24', comment: 'VPN-old'}
+
+    securityNetworks:
+      - { IP: 'X.Y.90.64/27', comment: 'Sec-FL' }
+      - { IP: 'X.Y.100.0/27'  , comment: 'Sec-TO' }
+      - { IP: 'X.Y.42.64/27' , comment: 'Sec-IE' }
+
+  es:
+    esNodes_privateIP:
+      - { IP: '10.121.24.82', comment: 'logstash1.sec.domain.com' }
+      - { IP: '10.121.24.230', comment: 'es30.sec.domain.com' }
+      - { IP: '10.121.24.231', comment: 'es31.sec.domain.com' }
+      - { IP: '10.121.24.100', comment: 'esph1.sec.domain.com' }
+      - { IP: '10.121.24.101', comment: 'esph2.sec.domain.com' }
+      - { IP: '10.121.24.102', comment: 'esph3.sec.domain.com' }
+      - { IP: '10.121.24.103', comment: 'esph4.sec.domain.com' }
+
+  # LDAP SERVERSumsrv:
+  umsrv:
+    NS:
+      - { IP: 'X.Y.252.10'  , PORT: '636', comment: 'ns1a.domain.com'}
+      - { IP: 'X.Y.252.11'  , PORT: '636', comment: 'ns1b.domain.com'}
+
+    sushi_stage:
+      - { IP: 'X.Y.159.11'  , PORT: '636', comment: 'sushi-stage OTRS-34050'}
+      - { IP: 'X.Y.159.12'  , PORT: '636', comment: 'sushi-stage OTRS-34050'}
+
+  offices:
+    GFL_P:
+      - { IP: 'X.Y.207.194',   comment: 'Office-P' }
+      - { IP: 'X.Y.110.93',   comment: 'Office-P' }
+    GFL_N:
+      - { IP: 'X.Y.86.0/24',  comment: 'Office-U' }
+
+  company_networks:
+    - { IP: 'X.Y.144.0/20'  , comment: 'company net', maskformat: 'X.Y.144.0/255.255.240.0'   }
+    - { IP: '10.0.0.0/8'      , comment: 'company net', maskformat: '10.0.0.0/255.0.0.0'          }
+
+  vpn_network_team:
+    - { IP: 'X.Y.0.240/29'  , comment: 'vpn pool network team', maskformat: 'X.Y.0.240/255.255.255.248'   }
+
+  management:
+      - { IP: '10.52.7.0/24', PORT: '3128', comment: 'squid-FL' }
+      - { IP: '10.56.7.0/24', PORT: '3128', comment: 'squid-TO' }
+      - { IP: '10.61.7.0/24', PORT: '3128', comment: 'squid-IE' }
+
+
+  bounceprod:
+    - { IP: 'X.Y.114.13'  , comment: 'b1'}
+    - { IP: 'X.Y.35.240', comment: 'b2'}
+
+  bouncedev:
+    - { IP: 'X.Y.114.173'  , comment: 'b5'}
+    - { IP: 'X.Y.144.33'   , comment: 'b7'}
+
+  # OUTPUT restrictions for bounce-dev
+  bouncedev_restricted:
+    by_group:
+      - { IP: 'X.Y.146.65'  , gidowner: '16009', comment: 'T-OTRS-30427' , policy: 'ACCEPT' }
+      - { IP: 'X.Y.67.132' , gidowner: '16009', comment: 'T-OTRS'        , policy: 'ACCEPT' }
+      - { IP: 'X.Y.48.107' , gidowner: '23004', comment: 'S-HDP'         , policy: 'ACCEPT' }
+      - { IP: 'X.Y.48.101' , gidowner: '13004', comment: 'VR-HDP'        , policy: 'ACCEPT' }
+      - { IP: '0/0'           , gidowner: '16009', comment: 'REJECT_TEHNICOM'      , policy: 'REJECT --reject-with icmp-port-unreachable' }
+      - { IP: '0/0'           , gidowner: '16014', comment: 'REJECT_TEHNICOM'      , policy: 'REJECT --reject-with icmp-port-unreachable' }
+      - { IP: '0/0'           , gidowner: '23004', comment: 'REJECT_SEAVUS'        , policy: 'REJECT --reject-with icmp-port-unreachable' }
+      - { IP: '0/0'           , gidowner: '13004', comment: 'REJECT_VR'            , policy: 'REJECT --reject-with icmp-port-unreachable' }
+      - { IP: '0/0'           , gidowner: '12009', comment: 'REJECT_PARTNERUP'     , policy: 'REJECT --reject-with icmp-port-unreachable' }
+
+    by_ip:
+      - { IP: 'X.Y.67.128/25' , comment: 'DEV/QA'                         , policy: 'ACCEPT' }
+
+

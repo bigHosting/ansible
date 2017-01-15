@@ -1,0 +1,32 @@
+####################
+#####  ICINGA  #####
+####################
+
+security:
+  acls: [ amsterdam.ipv4.mgmt_core_inbound.acl,amsterdam.ipv4.mgmt_core_outbound.acl,dublin.ipsec_outbound.acl ]
+
+
+icinga:
+  rpms:
+    - { package: "python-passlib" }
+    - { package: "gpg" }
+    - { package: "icinga" }
+    - { package: "icinga-doc" }
+    - { package: "icinga-idoutils-libdbi-mysql" }
+    - { package: "libtool-ltdl" }
+
+  groups_static:  [ nrpe, rtbhmonitoring ]
+  groups_dynamic: [ acls, bounce, dbservers, graylog, ijumpvpn, mal, nsyslog, umsrvnew, vmextra, webservers, rtbh, elasticsearch, ijumpproxies, pt, rsa, pa, windows, ijumpvpn, monitoring, nvd, dev, pxe, avproxies, backup, vpnloggers, bounce-dev, mongod, umsrvnewtest ]
+
+  #group_configs: "
+    #{%- for host in groups['webservers'] -%}
+      #{%- if host == 'default' or host == inventory_hostname or host == ansible_fqdn or host in ansible_all_ipv4_addresses -%}
+        #{{ loop.index }}
+      #{%- endif -%}
+    #{%- endfor -%}"
+
+
+  #mygroups: "{%- set icinga_groups = [] -%}{% for group in groups|sort if group != 'all' and not 'aggreg' in group and group != 'ungrouped' and group != 'umsrv' -%}{% set _ = icinga_groups.append(group) -%}{%- endfor -%}{{icinga_groups}}"
+  #group1: "{{ groups | join(' ') }}"
+  #group2: "{% for item in groups %}{{ item }} {% endfor %}"
+  #groups_list: "{{ groupsq.split() | list }}"

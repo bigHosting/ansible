@@ -1,0 +1,89 @@
+nodes:
+
+   ################
+   # BOUNCE BOXES #
+   ################
+   b1:
+      ifconfig:
+         - { iface: 'eth0', IP: 'X.Y.114.13',    netmask: '255.255.255.0',  gw: 'X.Y.114.1', enabled: '1'  }
+      mounts:
+         - { source: 'proc', target: '/proc', opts: 'defaults,hidepid=1', fstype: 'proc'}
+      #nfs:
+      #  - { enable: false }
+      cacti:
+         - { enabled: '1', tree: 'Mississauga',  template: 'ucd/net SNMP Host' }
+      yumextra:
+         - { packages: [ ansible-cmdb, VMware-vSphere-CLI, python-psphere, python-sphere, python-pyvmomi, perl-Frontier-RPC-Client, perl-Frontier-RPC-doc, perl-Sub-Override ] }
+      sshdextra:
+         - { name: 'MaxSessions', value: '6'}
+      httpd:
+         - { enable: false  }
+
+   b2:
+      ifconfig:
+         - { iface: 'eth1', IP: 'X.Y.35.240',  netmask: '255.255.255.0',  gw: 'X.Y.35.1', enabled: '1'  }
+      mounts:
+         - {source: 'proc', target: '/proc', opts: 'defaults,hidepid=1', fstype: 'proc'}
+      cacti:
+         - { enabled: '1', tree: 'Toronto',  template: 'ucd/net SNMP Host' }
+      yumextra:
+         - { packages: [ ansible-cmdb, VMware-vSphere-CLI, VMware-vSphere-CLI, python-psphere, python-sphere, python-pyvmomi, perl-Frontier-RPC-Client, perl-Frontier-RPC-doc, perl-Sub-Override ] }
+      sshdextra:
+         - { name: 'MaxSessions',   value: '3'}
+         - { name: 'KexAlgorithms', value: 'curve25519-sha256@libssh.org,ecdh-sha2-nistp521,diffie-hellman-group-exchange-sha256,ecdh-sha2-nistp384,ecdh-sha2-nistp256'}
+         - { name: 'Ciphers',       value: 'chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr'}
+         - { name: 'MACs',          value: 'hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-ripemd160-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,hmac-ripemd160,umac-128@openssh.com'}
+      httpd:
+         - { enable: false  }
+
+   bk1:
+      ifconfig:
+         - { iface: 'eth0', IP: 'X.Y.100.7',  netmask: '255.255.255.224',  gw: 'X.Y.100.1', enabled: '1'  }
+         - { iface: 'eth1', IP: '10.101.20.38', netmask: '255.255.255.0',  enabled: '1'  }
+      mounts:
+         - {source: '10.101.20.5:/sec', target: '/services'}
+         - {source: 'proc', target: '/proc', opts: 'defaults,hidepid=1', fstype: 'proc'}
+      cacti:
+         - { enabled: '1', tree: 'Miami',  template: 'ucd/net SNMP Host' }
+      yumextra:
+         - { packages: [] }
+      sshdextra: []
+      httpd:
+         - { enable: false  }
+
+   graylog1:
+      ifconfig:
+         - { iface: 'eth0', IP: 'X.Y.90.71',  netmask: '255.255.255.224', gw: 'X.Y.90.65', enabled: '1', ipv6_enabled: '1', ipv6_address: '2001:XXXX:5050:0058:0000:0001:0000:0071', ipv6_gateway: '2001:XXXX:5050:58::1'  }
+         - { iface: 'eth1', IP: '10.121.24.39',   netmask: '255.255.255.0',   enabled: '1'  }
+      mounts:
+         - {source: '10.121.24.7:/vol/security_graylog2',  target: '/services'}
+         - {source: 'proc', target: '/proc', opts: 'defaults,hidepid=1', fstype: 'proc'}
+      cacti:
+         - { enabled: '1', tree: 'Miami',  template: 'ucd/net SNMP Host' }
+      yumextra:
+         - { packages: [] }
+      sshdextra: []
+      httpd:
+         - { enable: false  }
+
+   ############
+   #  NAGIOS  #
+   ############
+   nagios:
+      ifconfig:
+         - { iface: 'eth0', IP: 'X.Y.90.94',  netmask: '255.255.255.224', gw: 'X.Y.90.65', enabled: '1', ipv6_enabled: '1', ipv6_address: '2001:XXXX:5050:0058:0000:0001:0000:0094', ipv6_gateway: '2001:XXXX:5050:58::1'  }
+         - { iface: 'eth1', IP: '10.121.24.67',   netmask: '255.255.255.0',   enabled: '1'  }
+         - { iface: 'eth2', IP: '10.52.7.20',     netmask: '255.255.255.0',     enabled: '1'  }
+         - { iface: 'eth3', IP: '10.52.0.15',     netmask: '255.255.255.0',   enabled: '1'  }
+      mounts:
+         - {source: '10.121.24.5:/sectools/backup',   target: '/localservices/backup' }
+         - {source: 'proc', target: '/proc', opts: 'defaults,hidepid=1', fstype: 'proc'}
+      cacti:
+         - { enabled: '1', tree: 'Miami',  template: 'ucd/net SNMP Host' }
+      yumextra:
+         - { packages: [ VMware-vSphere-CLI, VMware-vSphere-CLI, python-psphere, python-sphere, python-pyvmomi, perl-Frontier-RPC-Client, perl-Frontier-RPC-doc, perl-Sub-Override ] }
+      sshdextra: []
+      httpd:
+         - { enable: false  }
+
+

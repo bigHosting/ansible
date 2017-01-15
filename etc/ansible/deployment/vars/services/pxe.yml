@@ -1,0 +1,11 @@
+#################
+#####  PXE  #####
+#################
+pxe:
+  tftp_server: X.Y.114.16
+  network: X.Y.114.0
+  netmask: 255.255.255.0
+  range_start: X.Y.114.177
+  range_end: X.Y.114.183
+  gw: X.Y.114.1
+  bcast: X.Y.114.255

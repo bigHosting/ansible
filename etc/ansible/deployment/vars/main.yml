@@ -1,0 +1,22 @@
+##########################
+#########  vars  #########
+##########################
+minimum_ansible_version: 1.9.2
+
+files_dir: /etc/ansible/deployment/files
+templ_dir: /etc/ansible/deployment/templates
+tasks: /etc/ansible/deployment/tasks
+handlers: /etc/ansible/deployment/handlers
+
+hname: "'{{ inventory_hostname }}'"
+
+network:
+  iface: '{{ ansible_default_ipv4.interface }}'
+
+hostname_hostname: "{{inventory_hostname}}"
+hostname_shortname: "{{inventory_hostname.split('.')[0]}}"
+
+# remove dash from host name as Ansible cannot handle it properly in vars
+hostname_mounts: "{{hostname_shortname.replace('-','')}}"
+
+

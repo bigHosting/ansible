@@ -1,0 +1,45 @@
+sssd:
+
+  # GLOBAL/COMMON SECTION #
+  global:
+    services: [ nss, pam, sudo, ssh ]
+
+  # BouNCE PROD #
+  bounceprod:
+    domains:
+      DOMAIN1:
+          ldap_search_base:       'dc=domain,dc=com'
+          ldap_group_search_base: 'ou=groups,o=domain,dc=domain,dc=com'
+          ldap_user_search_base:  'ou=users,o=domain,dc=domain,dc=com'
+
+          ldap_group_lookups:
+            - cn=*
+
+          ldap_user_lookups:
+            - description=cn=bounce-production,ou=groups,o=domain,dc=domain,dc=com
+            - description=cn=almighties,ou=groups,o=domain,dc=domain,dc=com
+            - description=cn=security,ou=groups,o=domain,dc=domain,dc=com
+
+          ldap_access_filter:
+            - description=cn=bounce-production,ou=groups,o=domain,dc=domain,dc=com
+            - description=cn=almighties,ou=groups,o=domain,dc=domain,dc=com
+            - description=cn=security,ou=groups,o=domain,dc=domain,dc=com
+
+          ldap_sudo_search_base: 'ou=sudoers,o=domain,dc=domain,dc=com'
+
+      DOMAIN2:
+          ldap_search_base:       'dc=domain,dc=com'
+          ldap_group_search_base: 'u=groups,o=Deluxe,dc=affiliates,dc=domain,dc=com'
+          ldap_user_search_base:  'ou=users,o=Deluxe,dc=affiliates,dc=domain,dc=com'
+
+          ldap_group_lookups:
+            - cn=vpn
+            - cn=bounce-production
+
+          ldap_user_lookups:
+            - description=cn=bounce-production,ou=groups,o=Deluxe,dc=affiliates,dc=domain,dc=com
+
+          ldap_access_filter:
+            - description=cn=bounce-production,ou=groups,o=Deluxe,dc=affiliates,dc=domain,dc=com
+
+          ldap_sudo_search_base: 'ou=sudoers,o=Deluxe,dc=affiliates,dc=domain,dc=com'

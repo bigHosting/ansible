@@ -1,0 +1,12 @@
+cleanup:
+
+  # /localservices #
+  localservices:
+    remove: true
+    managed_fs_exceptions: [ accounts, accounts_bk, backup, backups, bin, ftp, gfs, hkeys, hp, puppetlabs, hsoftware, juniperlogs, kibana4.1, lost+found, rancid, rootsh, rpmbuild, rpmcpan, rsaupdate, rtbh, sbin, scancms, software, sshlog.log, toolsapi ]
+
+  # /opt #
+  opt:
+    remove: true
+    managed_fs_exceptions: [ ace, compaq, logstash, pam, hp, puppetlabs  ]
+

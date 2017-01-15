@@ -1,0 +1,7 @@
+#################
+#####  DNS  #####
+#################
+dns:
+  search: [ domain.eu, domain.com ]
+  nameservers: [ 10.250.1.1 ]
+  nameserversijump: [ 10.25.0.7 ]

@@ -1,0 +1,6 @@
+##########################
+#########   LDAP  ########
+##########################
+ldap:
+  remove: "no"
+  # remove takes yes or no , lowercase only

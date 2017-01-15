@@ -1,0 +1,67 @@
+#################
+#####  YUM  #####
+#################
+yum:
+  packages:
+    remove: [ iscsi-initiator-utils, device-mapper-multipath, mcstrans, telnet-server, rsh-server, rsh, ypbind, ypserv, talk, talk-server, chargen-dgram, chargen-stream, daytime-dgram, daytime-stream,echo-dgram, echo-stream, tcpmux-server, autofs, wireless-tools, fcoe-utils, lldpad-libs, lldpad, avahi, avahi-autoipd ]
+    epel: [ bwm-ng, dstat, htop, facter, ruby-json, tcptraceroute, perl-Crypt-CBC,  perl-Crypt-Blowfish, perl-Crypt-OpenSSL-AES, yum-plugin-priorities ]
+    main: [ bind-utils, perl-LDAP, mailx, python, python-crypto, python-pyasn1, libselinux-utils, libselinux, libselinux-python, python-paramiko, lynx, mc, openssh-clients, tcp_wrappers-libs, selinux-policy-targeted, selinux-policy, setuptool, sudo, tcp_wrappers-libs, unzip, yum-plugin-security, vim, yum-utils, yum-plugin-security, yum-plugin-downloadonly, yum-plugin-protectbase, ivykis, wget, crypto-utils, gpgme, pygpgme, ca-certificates ]
+
+  # settings for yum-cron service
+  cron:
+
+    install_latest: false
+
+    # Pass any given paramter to yum, as run in all the scripts
+    parameter: "--skip-broken --setopt=protected_multilib=false"
+
+    # Don't install, just check (valid: yes|no)
+    check_only: "no"
+
+    # Check to see if you can reach the repos before updating (valid: yes|no)
+    check_first: "no"
+
+    # Don't install, just check and download (valid: yes|no) # Implies CHECK_ONLY=yes (gotta check first to see what to download)
+    download_only: "no"
+
+    # randomwait is used by yum to wait random time . default is 60 so yum waits random time from 1 to 60 minutes. the value must not be zero
+    random_wait: "60"
+
+    # if MAILTO is set and the mail command is available, the mail command is used to deliver yum output
+    # by default MAILTO is unset, so crond mails the output by itself. example:  MAILTO=root
+    mailto: ""
+
+    # you may set DAYS_OF_WEEK to the days of the week you want to run. default is every day
+    day_of_week: "0123456"
+
+    # which day should it do cleanup on?  defaults to 0 (Sunday).  If this day isn't in the DAYS_OF_WEEK above, it'll never happen
+    clean_day: "0"
+
+    # set to yes to make the yum-cron service to wait for transactions to complete
+    service_waits: "yes"
+
+    # set maximum time period (in seconds) for the yum-cron service to wait for transactions to complete.  The default is 300 seconds (5 minutes)
+    service_wait_time: "300"
+
+  # settings for yum repo
+  repos:
+    remove_first: true
+
+    # CentOS 6
+    6:
+      - { file: "/etc/yum.repos.d/epel.repo" }
+      - { file: "/etc/yum.repos.d/hsecurity.repo" }
+      - { file: "/etc/yum.repos.d/rpmforge.repo" }
+      - { file: "/etc/yum.repos.d/vmware.repo" }
+      - { file: "/etc/yum.repos.d/CentOS-Base.repo" }
+
+    # CentOS 5
+    5:
+      - { file: "/etc/yum.repos.d/epel.repo" }
+      - { file: "/etc/yum.repos.d/rpmforge.repo" }
+      - { file: "/etc/yum.repos.d/vmware.repo" }
+      - { file: "/etc/yum.repos.d/CentOS-Base.repo" }
+
+  hsecurity:
+    parent_dir: "/REPO"
+    repo_dir: "/REPO/yum"
